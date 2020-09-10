@@ -15,12 +15,13 @@ limitations under the License.
 *******************************************************************************/
 
 #include <stddef.h>
-#include "bsp/adc.h"
 #include "bsp/buttons.h"
 #include "bsp/rgb_led3.h"
 #include "bsp/led1.h"
 #include "bsp/led2.h"
 #include "bsp/timer_1ms.h"
+#include "mcc_generated_files/adc1.h"
+#include "mcc_generated_files/system.h"
 
 //------------------------------------------------------------------------------
 //Application related definitions
@@ -41,6 +42,7 @@ static void ButtonS1Debounce(void);
 static void ButtonS2Debounce(void);
 static void DEMO_Initialize(void);
 static void DEMO_Tasks(void);
+static void UpdatePotentiometer(void);
 
 //------------------------------------------------------------------------------
 //Global variables
@@ -69,6 +71,9 @@ static uint16_t blue = 150;
 
 int main(void)
 {
+    
+    SYSTEM_Initialize();
+    
     DEMO_Initialize();
     
     while(1)
@@ -94,9 +99,6 @@ static void DEMO_Initialize(void)
     RGB_LED3_SetColor(red, green, blue);
     RGB_LED3_On();
     
-    //Enable and configure the ADC so it can sample the potentiometer.
-    ADC_SetConfiguration(ADC_CONFIGURATION_DEFAULT);
-    ADC_ChannelEnable(ADC_CHANNEL_POTENTIOMETER);
     
     //Turn on a timer, so to generate periodic interrupts.
     TIMER_SetConfiguration(TIMER_CONFIGURATION_1MS);
@@ -110,8 +112,8 @@ static void DEMO_Initialize(void)
 
 static void DEMO_Tasks(void)
 {   
-    potentiometer = ADC_Read16bit(ADC_CHANNEL_POTENTIOMETER);
-
+    UpdatePotentiometer();
+    
     //Use the potentiometer ADC value to set the brightness of the currently
     //selected color channel on the RGB LED.  The "currently selected channel"
     //is manually selected by the user at runtime by pressing the pushbuttons.
@@ -237,4 +239,29 @@ static void ButtonS2Debounce(void)
             debounceCounter--;
         }
     }    
+}
+
+static void UpdatePotentiometer(void)
+{
+    volatile uint16_t i=0;
+   //Enable ADC module
+    ADC1_Enable();
+    
+    //Select the PotentioMeter ADC Channel
+    ADC1_ChannelSelect(channel_AN5);
+    //Start Sampling
+    ADC1_SoftwareTriggerEnable();
+    //ADC sampling delay
+    for(i=0;i<65535;i++)
+    {
+        //Do Nothing
+    }
+    ADC1_SoftwareTriggerDisable();
+    //Check if the ADC conversion is completed
+    while(!ADC1_IsConversionComplete(channel_AN5))
+    {
+        //Do Nothing
+    }
+    // Get the Potentiometer ADC values 
+    potentiometer = ADC1_ConversionResultGet(channel_AN5);
 }
