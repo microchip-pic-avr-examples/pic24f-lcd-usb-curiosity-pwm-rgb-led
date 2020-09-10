@@ -89,10 +89,6 @@ int main(void)
 //------------------------------------------------------------------------------
 static void DEMO_Initialize(void)
 {
-    //Configure the pushbutton pins as digital inputs.
-    BUTTON_Enable(BUTTON_S1);
-    BUTTON_Enable(BUTTON_S2);
-   
     LED1_Off();
     LED2_Off();
     
