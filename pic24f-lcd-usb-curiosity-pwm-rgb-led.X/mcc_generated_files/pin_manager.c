@@ -84,7 +84,7 @@ void PIN_MANAGER_Initialize (void)
     TRISD = 0xF1FF;
     TRISE = 0x03FF;
     TRISF = 0x31BF;
-    TRISG = 0xB3CF;
+    TRISG = 0xF3CF;
     TRISH = 0x0001;
 
     /****************************************************************************
@@ -150,9 +150,9 @@ void PIN_MANAGER_Initialize (void)
      ***************************************************************************/
     __builtin_write_OSCCONL(OSCCON & 0xbf); // unlock PPS
 
-    RPOR6bits.RP12R = 0x0014;    //RD11->MCCP6:OCM6A
-    RPOR1bits.RP3R = 0x0012;    //RD10->MCCP5:OCM5A
     RPOR2bits.RP4R = 0x0010;    //RD9->MCCP4:OCM4A
+    RPOR1bits.RP3R = 0x0012;    //RD10->MCCP5:OCM5A
+    RPOR6bits.RP12R = 0x0014;    //RD11->MCCP6:OCM6A
 
     __builtin_write_OSCCONL(OSCCON | 0x40); // lock PPS
     
