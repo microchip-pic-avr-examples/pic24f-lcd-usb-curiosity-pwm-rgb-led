@@ -1,4 +1,4 @@
-<config configVersion="1.1" device="PIC24FJ512GU410" coreVersion="5.0.0">
+<config configVersion="1.1" device="PIC24FJ512GU410" coreVersion="5.0.1">
    <usedClasses class="java.util.HashMap">
       <entry>
          <string>Main Manager</string>

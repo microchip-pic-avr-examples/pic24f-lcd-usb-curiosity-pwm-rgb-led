@@ -26,6 +26,9 @@ limitations under the License.
 //Application related definitions
 //------------------------------------------------------------------------------
 #define BUTTON_DEBOUCE_TIME_MS      20
+#define RED_COLOR_LED_INTENSITY     600
+#define GREEN_COLOR_LED_INTENSITY   300
+#define BLUE_COLOR_LED_INTENSITY    150
 
 typedef enum
 {
@@ -39,9 +42,9 @@ typedef enum
 //------------------------------------------------------------------------------
 static volatile BUTTON_COLOR button_color = BUTTON_COLOR_RED;
 static uint16_t potentiometer;
-static uint16_t red = 600;
-static uint16_t green = 300;
-static uint16_t blue = 150;
+static uint16_t red = RED_COLOR_LED_INTENSITY;
+static uint16_t green = GREEN_COLOR_LED_INTENSITY;
+static uint16_t blue = BLUE_COLOR_LED_INTENSITY;
 
 //------------------------------------------------------------------------------
 //Function prototypes
@@ -166,7 +169,7 @@ static void ButtonS1Debounce(void)
     static uint16_t debounceCounter = 0;
     
     //Sample the button S1 to see if it is currently pressed or not.
-    if(BUTTON_IsPressed(BUTTON_S1))
+    if(!BUTTON_IsPressed(BUTTON_S1))
     {
         //The button is currently pressed.  Turn on the general purpose LED.
         LED1_On();
@@ -216,7 +219,7 @@ static void ButtonS2Debounce(void)
     static uint16_t debounceCounter = 0;
 
     //Sample the button S2 to see if it is currently pressed or not.
-    if(BUTTON_IsPressed(BUTTON_S2))
+    if(!BUTTON_IsPressed(BUTTON_S2))
     {
         //The button is currently pressed.  Turn on the general purpose LED.
         LED2_On();
