@@ -448,11 +448,6 @@
         <property key="programoptions.usehighvoltageonmclr" value="false"/>
         <property key="programoptions.uselvpprogramming" value="true"/>
       </PKOBSKDEPlatformTool>
-      <pkob4hybrid>
-        <property key="memories.programmemory.ranges" value="0-55eff"/>
-        <property key="programmerToGoFilePath"
-                  value="C:/work/repos/oobe_curiosity_boards/oob_pic24f_lcd_and_usb_curiosity/project.X/debug/default/project_ptg"/>
-      </pkob4hybrid>
     </conf>
   </confs>
 </configurationDescriptor>
