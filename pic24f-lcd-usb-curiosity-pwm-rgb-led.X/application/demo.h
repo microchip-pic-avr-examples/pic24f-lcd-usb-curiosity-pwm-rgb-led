@@ -14,30 +14,38 @@ See the License for the specific language governing permissions and
 limitations under the License.
 *******************************************************************************/
 
-#ifndef BSP_POWER_H
-#define BSP_POWER_H
-
-/** Type defintions *********************************/
-typedef enum
-{
-    POWER_SOURCE_USB,
-    POWER_SOURCE_MAINS
-} POWER_SOURCE;
-
+#ifndef DEMO_H
+#define	DEMO_H
 
 /*********************************************************************
-* Function: POWER_SOURCE POWER_SourceGet(void)
+* Function: void DEMO_Initialize(void)
 *
-* Overview: Gets the current source of power for the board
+* Overview: Initializes the demo by configuring the required peripherals.
 *
 * PreCondition: None
 *
-* Input: None
+* Input:  None
 *
-* Output: POWER_SOURCE - the current source of power for the board
+* Output: None
 *
 ********************************************************************/
-POWER_SOURCE POWER_SourceGet(void);
-#define POWER_SourceGet() POWER_SOURCE_USB
+void DEMO_Initialize(void);
 
-#endif //BSP_POWER_H
+/*********************************************************************
+* Function: void DEMO_Tasks(void)
+*
+* Overview: Demo task function which updates the brightness of the currently
+*           selected color channel on the RGB LED .
+*
+* PreCondition: None
+*
+* Input:  None
+*
+* Output: None
+*
+********************************************************************/
+void DEMO_Tasks(void);
+
+
+#endif	/* DEMO_H */
+
